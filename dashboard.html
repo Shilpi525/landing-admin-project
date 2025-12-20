@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<section style="padding:40px;">
+  <h2>Admin Dashboard</h2>
+
+  <!-- CONTACT DATA -->
+  <h3>Contact Form Submissions</h3>
+  <table border="1" cellpadding="10" cellspacing="0" width="100%" id="contactTable">
+  </table>
+
+  <br><br>
+
+  <!-- SUBSCRIBERS -->
+  <h3>Newsletter Subscribers</h3>
+  <ul id="subscriberList"></ul>
+
+  <br><br>
+  <button class="btn" onclick="logout()">Logout</button>
+</section>
+
+<script>
+/* ---------- CONTACT DATA ---------- */
+const contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+
+let tableHTML = "<tr><th>Name</th><th>Email</th><th>Mobile</th><th>City</th></tr>";
+
+contacts.forEach(c => {
+  tableHTML += `
+    <tr>
+      <td>${c["Full Name"] || ""}</td>
+      <td>${c["Email Address"] || ""}</td>
+      <td>${c["Mobile Number"] || ""}</td>
+      <td>${c["Area, City"] || ""}</td>
+    </tr>
+  `;
+});
+
+document.getElementById("contactTable").innerHTML = tableHTML;
+
+/* ---------- SUBSCRIBERS ---------- */
+const subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+
+subscribers.forEach(email => {
+  const li = document.createElement("li");
+  li.textContent = email;
+  document.getElementById("subscriberList").appendChild(li);
+});
+
+/* ---------- LOGOUT ---------- */
+function logout() {
+  window.location.href = "admin.html";
+}
+</script>
+
+</body>
+</html>
